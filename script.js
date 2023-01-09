@@ -5,13 +5,51 @@ const chart = new Chart (document.querySelector('#chart'),{
     options:chartOptions()
 
 })
+//restrict algorithm to run in n times key in pressed (keydown event)
+   let preventCallBack = false
+
+
+
 
 document.addEventListener('keydown',async()=>{
-   await labelDataPoints()
-    //labelDataPoints()
-    recenterClusterCenters()
-    
+   if(!preventCallBack) {
+      preventCallBack = true
+
+      let clusterCenterLocs =['code']
+      let clusterCenterNewLocs = ['tonight']
+      
+      while(JSON.stringify(clusterCenterLocs)!=JSON.stringify(clusterCenterNewLocs)){
+         clusterCenterLocs = []
+         for(let i=0 ; i<k; i++){
+           clusterCenterLocs.push(chart.data.datasets[0].data[i])   
+      }
+      
+      await labelDataPoints()
+      await recenterClusterCenters()
+   
+      clusterCenterNewLocs = []
+         for(let i=0 ; i<k; i++){
+           clusterCenterNewLocs.push(chart.data.datasets[0].data[i])
+         }
+      }
+      alert('Done now Open The console to see results')
+      consoleResults()
+   }
+   
  })
+
+
+ //get the cluster and loop through them to display the results in table form
+
+ function consoleResults() {
+   const clusters = getClusters()
+   for(let i=0 ; i<clusters.length; i++){
+      console.log('Category $(String.formCharCode(i+65) Patients :')
+      console.table(clusters[i])
+      console.log(clusters[0],clusters[1],clusters[2],clusters[3])
+    }
+    draw()
+ }
 
 function recenterClusterCenters(){
   return new Promise(async(resolve,reject)=>{
