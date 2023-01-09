@@ -18,6 +18,9 @@ Steps :
 
 
 **** K-Means TUTO ****
+
+
+
 K-means clustering is an unsupervised machine learning algorithm used to group data points into clusters based on their similarity. It is one of the most popular clustering algorithms and is used in a variety of applications such as customer segmentation, image segmentation, and anomaly detection.
 
 The basic idea behind k-means clustering is to partition a dataset into k clusters, where each cluster contains similar data points. The algorithm works by iteratively assigning each data point to the closest cluster center (also known as centroid). The centroids are then updated based on the mean of all the data points assigned to it. This process is repeated until the centroids no longer move or until a predetermined number of iterations have been reached.
